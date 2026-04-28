@@ -1,16 +1,16 @@
 [
   {
-    "id": "moskva-01",
-    "name": "01",
+    "id": "moskva-fili-pechatniki",
+    "name": "Парк Фили — Печатники",
     "color": "#e34f3f",
-    "durationSeconds": 78,
+    "durationSeconds": 90,
     "start": [
-      37.392,
-      55.782
+      37.4752414,
+      55.7493934
     ],
     "end": [
-      37.754,
-      55.636
+      37.7138085,
+      55.6839739
     ]
   }
 ]

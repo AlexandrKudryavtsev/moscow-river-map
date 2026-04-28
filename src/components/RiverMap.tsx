@@ -12,6 +12,9 @@ export function RiverMap() {
   const animationRef = useRef<number | null>(null)
   const geo = useMemo(() => buildMoscowGeo(), [])
   const activeRoute = geo.routes[0] ?? null
+  const activeRouteLabels = activeRoute?.name.split(' — ') ?? []
+  const activeRouteStartLabel = activeRouteLabels[0] ?? 'Парк Фили'
+  const activeRouteEndLabel = activeRouteLabels[1] ?? 'Печатники'
 
   useEffect(() => {
     if (!mapNodeRef.current) {
@@ -216,16 +219,20 @@ export function RiverMap() {
           </div>
           {activeRoute ? (
             <div className="route-strip" aria-label="Маршрут точки">
-              <span>
-                {activeRoute.from[1].toFixed(3)}, {activeRoute.from[0].toFixed(3)}
-              </span>
+              <span>{activeRouteStartLabel}</span>
               <span className="route-line" />
-              <span>
-                {activeRoute.to[1].toFixed(3)}, {activeRoute.to[0].toFixed(3)}
-              </span>
+              <span>{activeRouteEndLabel}</span>
             </div>
           ) : null}
         </div>
+        <a
+          className="map-attribution"
+          href="https://www.openstreetmap.org/copyright"
+          target="_blank"
+          rel="noreferrer"
+        >
+          © OpenStreetMap
+        </a>
       </section>
     </main>
   )

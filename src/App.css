@@ -196,7 +196,7 @@
 
 .map-hud {
   position: absolute;
-  top: clamp(18px, 4vw, 36px);
+  bottom: clamp(18px, 4vw, 36px);
   left: clamp(18px, 4vw, 40px);
   z-index: 3;
   display: grid;
@@ -244,6 +244,21 @@
   background: linear-gradient(90deg, #124653, #e34f3f);
 }
 
+.map-attribution {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  z-index: 3;
+  color: rgba(23, 33, 38, 0.48);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.map-attribution:hover {
+  color: rgba(23, 33, 38, 0.74);
+}
+
 .maplibregl-ctrl-top-right {
   top: clamp(18px, 4vw, 36px);
   right: clamp(18px, 4vw, 36px);
@@ -276,7 +291,9 @@
 
 @media (max-width: 620px) {
   .map-hud {
+    top: 18px;
     right: 18px;
+    bottom: auto;
     width: auto;
   }
 

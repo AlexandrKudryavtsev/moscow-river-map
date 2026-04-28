@@ -1,5 +1,4 @@
 import along from '@turf/along'
-import bezierSpline from '@turf/bezier-spline'
 import circle from '@turf/circle'
 import length from '@turf/length'
 import lineSlice from '@turf/line-slice'
@@ -31,6 +30,7 @@ export type RouteProperties = {
 }
 
 export type RiverRoute = RouteProperties & {
+  name: string
   speedKmh?: number
   durationSeconds?: number
   line: Feature<LineString, RouteProperties>
@@ -110,6 +110,7 @@ function createRoute(riverLine: Feature<LineString>, vessel: VesselData): RiverR
 
   return {
     id: vessel.id,
+    name: vessel.name,
     color: vessel.color,
     speedKmh: vessel.speedKmh,
     durationSeconds: vessel.durationSeconds,
@@ -184,11 +185,7 @@ export function createShipFeature(
 }
 
 export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
-  const riverSketch = lineFeature(data.riverSpine)
-  const riverLine = bezierSpline(riverSketch, {
-    resolution: 9000,
-    sharpness: 0.82,
-  }) as Feature<LineString>
+  const riverLine = lineFeature(data.riverSpine)
   const riverLength = length(riverLine, { units: 'kilometers' })
   const riverArea: Feature<MultiPolygon, { name: string }> = {
     type: 'Feature',
