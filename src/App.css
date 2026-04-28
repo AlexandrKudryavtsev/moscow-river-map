@@ -1,0 +1,308 @@
+.river-app {
+  min-height: 100vh;
+  background: #dce4dd;
+  color: #172126;
+}
+
+.map-stage {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.moscow-map {
+  position: absolute;
+  inset: 0;
+}
+
+.schematic-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.schematic-overlay.is-ready {
+  opacity: 1;
+}
+
+.city-shape {
+  fill: #fbfaf6;
+}
+
+.city-border {
+  fill: none;
+  stroke: #9ba89f;
+  stroke-width: 2;
+  stroke-opacity: 0.75;
+}
+
+.city-ring {
+  fill: none;
+  stroke: #c8d0ca;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 9;
+  stroke-opacity: 0.78;
+}
+
+.detail-line {
+  fill: none;
+  stroke: #d4d0c2;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: 0.72;
+}
+
+.park-shape {
+  fill: #dbeccc;
+  fill-opacity: 0.82;
+  stroke: #9fbd8c;
+  stroke-width: 1.4;
+  stroke-opacity: 0.68;
+}
+
+.river-shape {
+  fill: #6bc9dc;
+  fill-opacity: 0.92;
+  stroke: #15859d;
+  stroke-width: 3;
+  stroke-opacity: 0.5;
+}
+
+.river-center {
+  fill: none;
+  stroke: #d6fbff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: 0.58;
+}
+
+.bridge-casing {
+  fill: none;
+  stroke: #fbfaf6;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-opacity: 0.95;
+}
+
+.bridge-line {
+  fill: none;
+  stroke: #6f8079;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-opacity: 0.82;
+}
+
+.ship-route {
+  fill: none;
+  stroke: #124653;
+  stroke-width: 2.2;
+  stroke-dasharray: 4 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: 0.54;
+}
+
+.terminal-halo {
+  fill: #ffffff;
+  opacity: 0.9;
+}
+
+.terminal-dot {
+  fill: #124653;
+  opacity: 0.85;
+}
+
+.ship-halo {
+  fill: #ffffff;
+  opacity: 0.84;
+}
+
+.ship-dot {
+  fill: var(--ship-color);
+  stroke: #1b272c;
+  stroke-width: 2;
+}
+
+.landmark-halo {
+  fill: #fbfaf6;
+  stroke: #8ea09a;
+  stroke-width: 1;
+  opacity: 0.95;
+}
+
+.landmark-dot {
+  fill: #415456;
+}
+
+.landmark-historic .landmark-dot {
+  fill: #a34336;
+}
+
+.landmark-business .landmark-dot {
+  fill: #355a86;
+}
+
+.landmark-culture .landmark-dot {
+  fill: #6d5798;
+}
+
+.landmark-park .landmark-dot {
+  fill: #658b4f;
+}
+
+.landmark-station .landmark-dot {
+  fill: #7b5d42;
+}
+
+.landmark-sport .landmark-dot {
+  fill: #b05042;
+}
+
+.landmark-tower .landmark-dot {
+  fill: #2f6f83;
+}
+
+.map-label {
+  fill: #3f5353;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: rgba(251, 250, 246, 0.88);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.park-label {
+  fill: #688257;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.84;
+  text-anchor: middle;
+}
+
+.landmark-label {
+  font-size: 12px;
+}
+
+.map-hud {
+  position: absolute;
+  top: clamp(18px, 4vw, 36px);
+  left: clamp(18px, 4vw, 40px);
+  z-index: 3;
+  display: grid;
+  gap: 14px;
+  width: min(390px, calc(100vw - 36px));
+  padding: 18px;
+  border: 1px solid rgba(23, 33, 38, 0.12);
+  border-radius: 8px;
+  background: rgba(251, 250, 246, 0.9);
+  box-shadow: 0 18px 42px rgba(20, 35, 42, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #55706d;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.map-hud h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.route-strip {
+  display: grid;
+  grid-template-columns: max-content minmax(28px, 1fr) max-content;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #385056;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.route-line {
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #124653, #e34f3f);
+}
+
+.maplibregl-ctrl-top-right {
+  top: clamp(18px, 4vw, 36px);
+  right: clamp(18px, 4vw, 36px);
+  z-index: 4;
+}
+
+.maplibregl-control-container {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.maplibregl-ctrl-top-right .maplibregl-ctrl {
+  margin: 0;
+}
+
+.maplibregl-ctrl-group {
+  overflow: hidden;
+  border: 1px solid rgba(23, 33, 38, 0.12);
+  border-radius: 8px;
+  background: rgba(251, 250, 246, 0.92);
+  box-shadow: 0 12px 28px rgba(20, 35, 42, 0.14);
+}
+
+.maplibregl-ctrl-group button {
+  width: 34px;
+  height: 34px;
+}
+
+@media (max-width: 620px) {
+  .map-hud {
+    right: 18px;
+    width: auto;
+  }
+
+  .route-strip {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    white-space: normal;
+  }
+
+  .route-line {
+    width: 100%;
+  }
+
+  .maplibregl-ctrl-top-right {
+    top: auto;
+    right: 18px;
+    bottom: max(18px, env(safe-area-inset-bottom));
+  }
+
+  .park-label,
+  .landmark-label {
+    display: none;
+  }
+
+  .detail-line,
+  .city-ring {
+    stroke-opacity: 0.48;
+  }
+}

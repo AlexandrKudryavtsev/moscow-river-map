@@ -1,0 +1,222 @@
+[
+  {
+    "id": "red-square",
+    "name": "Красная площадь",
+    "coordinates": [
+      37.621501,
+      55.753591
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "kremlin",
+    "name": "Кремль",
+    "coordinates": [
+      37.618122,
+      55.751621
+    ],
+    "kind": "historic",
+    "dx": -58,
+    "dy": 12
+  },
+  {
+    "id": "st-basil",
+    "name": "Собор Василия",
+    "coordinates": [
+      37.623162,
+      55.752474
+    ],
+    "kind": "historic",
+    "dx": 12,
+    "dy": 15
+  },
+  {
+    "id": "bolshoi",
+    "name": "Большой театр",
+    "coordinates": [
+      37.618612,
+      55.76013
+    ],
+    "kind": "culture",
+    "dx": -42,
+    "dy": -12
+  },
+  {
+    "id": "gum",
+    "name": "ГУМ",
+    "coordinates": [
+      37.621438,
+      55.754703
+    ],
+    "kind": "culture",
+    "dx": 12,
+    "dy": -2
+  },
+  {
+    "id": "christ-saviour",
+    "name": "Храм Христа Спасителя",
+    "coordinates": [
+      37.605511,
+      55.744524
+    ],
+    "kind": "historic",
+    "dx": -90,
+    "dy": 4
+  },
+  {
+    "id": "zaryadye",
+    "name": "Зарядье",
+    "coordinates": [
+      37.628935,
+      55.751217
+    ],
+    "kind": "park",
+    "dx": 10,
+    "dy": 19
+  },
+  {
+    "id": "tretyakov",
+    "name": "Третьяковка",
+    "coordinates": [
+      37.62022,
+      55.741361
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "pushkin-museum",
+    "name": "Пушкинский музей",
+    "coordinates": [
+      37.605423,
+      55.747285
+    ],
+    "kind": "culture",
+    "dx": -88,
+    "dy": -6
+  },
+  {
+    "id": "novodevichy",
+    "name": "Новодевичий",
+    "coordinates": [
+      37.555771,
+      55.726028
+    ],
+    "kind": "historic",
+    "dx": -88,
+    "dy": -8
+  },
+  {
+    "id": "luzhniki",
+    "name": "Лужники",
+    "coordinates": [
+      37.553767,
+      55.715745
+    ],
+    "kind": "sport",
+    "dx": -58,
+    "dy": 18
+  },
+  {
+    "id": "msu",
+    "name": "МГУ",
+    "coordinates": [
+      37.530756,
+      55.70291
+    ],
+    "kind": "culture",
+    "dx": -36,
+    "dy": 20
+  },
+  {
+    "id": "moscow-city",
+    "name": "Москва-Сити",
+    "coordinates": [
+      37.538545,
+      55.749381
+    ],
+    "kind": "business",
+    "dx": -74,
+    "dy": -10
+  },
+  {
+    "id": "ostankino",
+    "name": "Останкино",
+    "coordinates": [
+      37.611655,
+      55.81973
+    ],
+    "kind": "tower",
+    "dx": 10,
+    "dy": -8
+  },
+  {
+    "id": "vdnh",
+    "name": "ВДНХ",
+    "coordinates": [
+      37.621803,
+      55.833946
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "victory-museum",
+    "name": "Музей Победы",
+    "coordinates": [
+      37.504762,
+      55.731
+    ],
+    "kind": "culture",
+    "dx": -82,
+    "dy": 18
+  },
+  {
+    "id": "arbat",
+    "name": "Арбат",
+    "coordinates": [
+      37.592691,
+      55.749812
+    ],
+    "kind": "district",
+    "dx": -36,
+    "dy": -14
+  },
+  {
+    "id": "kolomenskoye",
+    "name": "Коломенское",
+    "coordinates": [
+      37.663494,
+      55.660811
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "tsaritsyno",
+    "name": "Царицыно",
+    "coordinates": [
+      37.68384,
+      55.62122
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "kuskovo",
+    "name": "Кусково",
+    "coordinates": [
+      37.807451,
+      55.735307
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": -10
+  }
+]
