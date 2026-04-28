@@ -7,6 +7,7 @@ export type LandmarkKind =
   | 'district'
   | 'historic'
   | 'park'
+  | 'river-terminal'
   | 'sport'
   | 'station'
   | 'tower'

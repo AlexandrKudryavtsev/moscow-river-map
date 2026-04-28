@@ -154,6 +154,22 @@
   fill: currentColor;
 }
 
+.river-terminal-icon-halo {
+  fill: #eafaff;
+  stroke: #0d7da0;
+  stroke-width: 1.35;
+  opacity: 0.98;
+}
+
+.river-terminal-icon {
+  color: #0a7298;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
 .landmark-historic .landmark-dot {
   fill: #a34336;
 }
@@ -180,6 +196,14 @@
   font-weight: 800;
   stroke: rgba(251, 250, 246, 0.94);
   stroke-width: 3px;
+}
+
+.landmark-river-terminal .landmark-label {
+  fill: #0a6789;
+  font-size: 10.5px;
+  font-weight: 800;
+  stroke: rgba(251, 250, 246, 0.96);
+  stroke-width: 3.2px;
 }
 
 .landmark-sport .landmark-dot {

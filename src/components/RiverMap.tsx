@@ -114,6 +114,12 @@ export function RiverMap() {
             <symbol id="metro-icon" viewBox="0 0 24 24">
               <path d="M3.4 19h4.1l.9-3h7.2l.9 3h4.1L16.7 5h-3.1L12 10.4 10.4 5H7.3L3.4 19Zm6-6.3L12 7.4l2.6 5.3H9.4Z" />
             </symbol>
+            <symbol id="anchor-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="5" r="3" />
+              <path d="M12 8v13" />
+              <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
+              <path d="m7 17 5 4 5-4" />
+            </symbol>
             <clipPath id="moscow-city-clip">
               <path data-map-shape="city-clip" />
             </clipPath>
@@ -178,6 +184,18 @@ export function RiverMap() {
                       width="10.8"
                       height="10.8"
                       className="metro-icon"
+                    />
+                  </>
+                ) : feature.properties.kind === 'river-terminal' ? (
+                  <>
+                    <circle r="8" className="river-terminal-icon-halo" />
+                    <use
+                      href="#anchor-icon"
+                      x="-6.4"
+                      y="-6.4"
+                      width="12.8"
+                      height="12.8"
+                      className="river-terminal-icon"
                     />
                   </>
                 ) : (

@@ -779,5 +779,258 @@
     "kind": "culture",
     "dx": 10,
     "dy": 16
+  },
+  {
+    "id": "river-park-fili",
+    "name": "Парк Фили",
+    "coordinates": [
+      37.4752414,
+      55.7493934
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-beregovoy",
+    "name": "Береговой",
+    "coordinates": [
+      37.5126725,
+      55.7584408
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-serdtse-stolitsy",
+    "name": "Сердце столицы",
+    "coordinates": [
+      37.5113705,
+      55.7605527
+    ],
+    "kind": "river-terminal",
+    "dx": -92,
+    "dy": 18
+  },
+  {
+    "id": "river-kutuzovsky",
+    "name": "Кутузовский",
+    "coordinates": [
+      37.5381224,
+      55.7446074
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-city-bagration",
+    "name": "Сити-Багратион",
+    "coordinates": [
+      37.5448026,
+      55.7465703
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "river-city-central",
+    "name": "Сити-Центральный",
+    "coordinates": [
+      37.5422174,
+      55.7465224
+    ],
+    "kind": "river-terminal",
+    "dx": -112,
+    "dy": -12
+  },
+  {
+    "id": "river-krasnopresnensky-park",
+    "name": "Краснопресненский парк",
+    "coordinates": [
+      37.5506661,
+      55.7505316
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-trekhgorny",
+    "name": "Трёхгорный",
+    "coordinates": [
+      37.5639321,
+      55.7540869
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-kievsky",
+    "name": "Киевский",
+    "coordinates": [
+      37.5720111,
+      55.7435992
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-novospassky",
+    "name": "Новоспасский",
+    "coordinates": [
+      37.6534569,
+      55.7302868
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-derbenevskaya",
+    "name": "Дербеневская набережная",
+    "coordinates": [
+      37.6564027,
+      55.7249879
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-torpedo",
+    "name": "Торпедо",
+    "coordinates": [
+      37.6537889,
+      55.7190465
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-simonovsky",
+    "name": "Симоновский",
+    "coordinates": [
+      37.6424626,
+      55.706356
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-avtozavodsky-bridge",
+    "name": "Автозаводский мост",
+    "coordinates": [
+      37.6270028,
+      55.7027834
+    ],
+    "kind": "river-terminal",
+    "dx": -118,
+    "dy": -12
+  },
+  {
+    "id": "river-zil",
+    "name": "ЗИЛ",
+    "coordinates": [
+      37.6284797,
+      55.700033
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "river-nagatinsky",
+    "name": "Нагатинский",
+    "coordinates": [
+      37.6282898,
+      55.6904305
+    ],
+    "kind": "river-terminal",
+    "dx": -86,
+    "dy": 18
+  },
+  {
+    "id": "river-zaton-novinki",
+    "name": "Затон Новинки",
+    "coordinates": [
+      37.6558169,
+      55.6921155
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-klenovy-bulvar",
+    "name": "Кленовый бульвар",
+    "coordinates": [
+      37.6720501,
+      55.6866221
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-south-river-terminal",
+    "name": "Южный речной вокзал",
+    "coordinates": [
+      37.676835,
+      55.6894185
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "river-moscow-shipyard",
+    "name": "Московская верфь",
+    "coordinates": [
+      37.696284,
+      55.6912734
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-nagatinsky-zaton",
+    "name": "Нагатинский Затон",
+    "coordinates": [
+      37.7012853,
+      55.6858606
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-kolomenskaya-embankment",
+    "name": "Коломенская набережная",
+    "coordinates": [
+      37.7103593,
+      55.6844611
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "river-pechatniki",
+    "name": "Печатники",
+    "coordinates": [
+      37.7138085,
+      55.6839739
+    ],
+    "kind": "river-terminal",
+    "dx": 10,
+    "dy": 18
   }
 ]
