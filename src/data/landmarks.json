@@ -383,5 +383,401 @@
     "kind": "station",
     "dx": 10,
     "dy": 16
+  },
+  {
+    "id": "place-msu-main",
+    "name": "МГУ",
+    "coordinates": [
+      37.5290672,
+      55.7023258
+    ],
+    "kind": "culture",
+    "dx": -36,
+    "dy": 20
+  },
+  {
+    "id": "place-financial-university",
+    "name": "Финансовый университет",
+    "coordinates": [
+      37.4875521,
+      55.7387488
+    ],
+    "kind": "culture",
+    "dx": -112,
+    "dy": -8
+  },
+  {
+    "id": "place-sechenov-university",
+    "name": "Сеченовский университет",
+    "coordinates": [
+      37.5703032,
+      55.7333304
+    ],
+    "kind": "culture",
+    "dx": -116,
+    "dy": 16
+  },
+  {
+    "id": "place-misis",
+    "name": "МИСИС",
+    "coordinates": [
+      37.6083101,
+      55.7284252
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-kosygin-university",
+    "name": "РГУ им. Косыгина",
+    "coordinates": [
+      37.6374858,
+      55.7449008
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-gitis",
+    "name": "ГИТИС",
+    "coordinates": [
+      37.6546115,
+      55.7452401
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-surikov-institute",
+    "name": "МГХИ им. Сурикова",
+    "coordinates": [
+      37.6214895,
+      55.7417011
+    ],
+    "kind": "culture",
+    "dx": -94,
+    "dy": 14
+  },
+  {
+    "id": "place-filion",
+    "name": "Филион",
+    "coordinates": [
+      37.5080962,
+      55.7439874
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": 18
+  },
+  {
+    "id": "place-afimall",
+    "name": "Афимолл",
+    "coordinates": [
+      37.5396075,
+      55.7491455
+    ],
+    "kind": "business",
+    "dx": -74,
+    "dy": -10
+  },
+  {
+    "id": "place-evropeysky",
+    "name": "Европейский",
+    "coordinates": [
+      37.5660005,
+      55.7444711
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-usachevsky-market",
+    "name": "Усачёвский рынок",
+    "coordinates": [
+      37.5677558,
+      55.7275174
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-riviera",
+    "name": "Ривьера",
+    "coordinates": [
+      37.6404564,
+      55.7050148
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-paveletskaya-plaza",
+    "name": "Павелецкая Плаза",
+    "coordinates": [
+      37.6399402,
+      55.7309681
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-yerevan-plaza",
+    "name": "Ереван Плаза",
+    "coordinates": [
+      37.6221152,
+      55.7087066
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-dream-island",
+    "name": "Остров Мечты",
+    "coordinates": [
+      37.6789257,
+      55.6948592
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-gum",
+    "name": "ГУМ",
+    "coordinates": [
+      37.621438,
+      55.754703
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-kremlin",
+    "name": "Кремль",
+    "coordinates": [
+      37.618122,
+      55.751621
+    ],
+    "kind": "historic",
+    "dx": -58,
+    "dy": 12
+  },
+  {
+    "id": "place-red-square",
+    "name": "Красная площадь",
+    "coordinates": [
+      37.621501,
+      55.753591
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": -12
+  },
+  {
+    "id": "place-st-basil",
+    "name": "Собор Василия",
+    "coordinates": [
+      37.623162,
+      55.752474
+    ],
+    "kind": "historic",
+    "dx": 12,
+    "dy": 15
+  },
+  {
+    "id": "place-christ-saviour",
+    "name": "Храм Христа Спасителя",
+    "coordinates": [
+      37.605511,
+      55.744524
+    ],
+    "kind": "historic",
+    "dx": -110,
+    "dy": 4
+  },
+  {
+    "id": "place-novodevichy-monastery",
+    "name": "Новодевичий монастырь",
+    "coordinates": [
+      37.5595865,
+      55.726802
+    ],
+    "kind": "historic",
+    "dx": -118,
+    "dy": -8
+  },
+  {
+    "id": "place-danilov-monastery",
+    "name": "Данилов монастырь",
+    "coordinates": [
+      37.6296887,
+      55.7108318
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-novospassky-monastery",
+    "name": "Новоспасский монастырь",
+    "coordinates": [
+      37.6566141,
+      55.7317502
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-krutitsy",
+    "name": "Крутицкое подворье",
+    "coordinates": [
+      37.6586652,
+      55.7278991
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-donskoy-monastery",
+    "name": "Донской монастырь",
+    "coordinates": [
+      37.6020658,
+      55.7145196
+    ],
+    "kind": "historic",
+    "dx": -92,
+    "dy": 12
+  },
+  {
+    "id": "place-ascension-kolomenskoye",
+    "name": "Вознесение в Коломенском",
+    "coordinates": [
+      37.6707018,
+      55.667277
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-luzhniki",
+    "name": "Лужники",
+    "coordinates": [
+      37.553767,
+      55.715745
+    ],
+    "kind": "sport",
+    "dx": -58,
+    "dy": 18
+  },
+  {
+    "id": "place-victory-museum",
+    "name": "Музей Победы",
+    "coordinates": [
+      37.504762,
+      55.731
+    ],
+    "kind": "culture",
+    "dx": -82,
+    "dy": 18
+  },
+  {
+    "id": "place-new-tretyakov",
+    "name": "Новая Третьяковка",
+    "coordinates": [
+      37.6062274,
+      55.7348087
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-tretyakov-gallery",
+    "name": "Третьяковка",
+    "coordinates": [
+      37.6206444,
+      55.7408746
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-pushkin-museum",
+    "name": "Пушкинский музей",
+    "coordinates": [
+      37.605423,
+      55.747285
+    ],
+    "kind": "culture",
+    "dx": -88,
+    "dy": -6
+  },
+  {
+    "id": "place-ges-2",
+    "name": "ГЭС-2",
+    "coordinates": [
+      37.6137205,
+      55.7427537
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-garage",
+    "name": "Гараж",
+    "coordinates": [
+      37.6016368,
+      55.7278187
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-house-of-music",
+    "name": "Дом музыки",
+    "coordinates": [
+      37.6401988,
+      55.7328425
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-bolshoi",
+    "name": "Большой театр",
+    "coordinates": [
+      37.618612,
+      55.76013
+    ],
+    "kind": "culture",
+    "dx": -42,
+    "dy": -12
+  },
+  {
+    "id": "place-taganka-theatre",
+    "name": "Театр на Таганке",
+    "coordinates": [
+      37.6539419,
+      55.7427962
+    ],
+    "kind": "culture",
+    "dx": 10,
+    "dy": 16
   }
 ]
