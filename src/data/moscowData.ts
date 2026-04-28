@@ -4,6 +4,7 @@ import mapConfig from './map-config.json'
 import parks from './parks.json'
 import riverAreas from './river-areas.json'
 import riverSpine from './river-spine.json'
+import roads from './roads.json'
 import vessels from './vessels.json'
 import type { MoscowMapData } from '../types/mapData'
 
@@ -18,5 +19,6 @@ export const MOSCOW_DATA: MoscowMapData = {
   parks: parks as unknown as MoscowMapData['parks'],
   riverAreas: riverAreas as unknown as MoscowMapData['riverAreas'],
   riverSpine: riverSpine as unknown as MoscowMapData['riverSpine'],
+  roads: roads as unknown as MoscowMapData['roads'],
   vessels: vessels as unknown as MoscowMapData['vessels'],
 }

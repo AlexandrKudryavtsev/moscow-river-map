@@ -50,6 +50,42 @@
   stroke-opacity: 0.78;
 }
 
+.road-line {
+  fill: none;
+  stroke: #b8c0b7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.road-tertiary {
+  stroke-width: 0.8;
+  stroke-opacity: 0.23;
+}
+
+.road-secondary {
+  stroke-width: 1;
+  stroke-opacity: 0.3;
+}
+
+.road-link {
+  stroke-width: 0.85;
+  stroke-opacity: 0.2;
+}
+
+.road-primary {
+  stroke: #a2ada6;
+  stroke-width: 1.45;
+  stroke-opacity: 0.42;
+}
+
+.road-trunk,
+.road-motorway {
+  stroke: #8f9d98;
+  stroke-width: 1.75;
+  stroke-opacity: 0.5;
+}
+
 .detail-line {
   fill: none;
   stroke: #d4d0c2;
@@ -365,5 +401,14 @@
   .detail-line,
   .city-ring {
     stroke-opacity: 0.48;
+  }
+
+  .road-tertiary,
+  .road-link {
+    stroke-opacity: 0.16;
+  }
+
+  .road-secondary {
+    stroke-opacity: 0.24;
   }
 }

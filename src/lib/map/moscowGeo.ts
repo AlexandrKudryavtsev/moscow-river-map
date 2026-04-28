@@ -20,6 +20,7 @@ import type {
   LngLat,
   MoscowMapData,
   ParkData,
+  RoadData,
   VesselData,
 } from '../../types/mapData'
 import { BRIDGE_HALF_LENGTH_KM, BRIDGE_TANGENT_SAMPLE_KM } from './constants'
@@ -47,6 +48,7 @@ export type BridgeProperties = {
 }
 
 export type ParkProperties = Pick<ParkData, 'id' | 'label' | 'name'>
+export type RoadProperties = Omit<RoadData, 'path'>
 export type LandmarkProperties = Omit<LandmarkData, 'coordinates'>
 
 export type TerminalProperties = {
@@ -63,6 +65,7 @@ export type MoscowGeo = {
   riverArea: Feature<MultiPolygon, { name: string }>
   cityOutline: Feature<Polygon, { name: string }>
   ringLines: FeatureCollection<LineString>
+  roadLines: FeatureCollection<LineString, RoadProperties>
   parkAreas: FeatureCollection<Polygon, ParkProperties>
   bridgeLines: FeatureCollection<Point, BridgeProperties>
   landmarks: FeatureCollection<Point, LandmarkProperties>
@@ -213,6 +216,16 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
       ),
     ),
   )
+  const roadLines = featureCollection(
+    data.roads.map((road) =>
+      lineFeature(road.path, {
+        id: road.id,
+        osmId: road.osmId,
+        name: road.name,
+        kind: road.kind,
+      }),
+    ),
+  )
   const parkAreas = featureCollection(
     data.parks.map((park) => ({
       type: 'Feature',
@@ -248,6 +261,7 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
     riverArea,
     cityOutline,
     ringLines,
+    roadLines,
     parkAreas,
     bridgeLines,
     landmarks,

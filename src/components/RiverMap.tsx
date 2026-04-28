@@ -129,6 +129,13 @@ export function RiverMap() {
             {geo.ringLines.features.map((_, index) => (
               <path key={index} className="city-ring" data-ring-index={index} />
             ))}
+            {geo.roadLines.features.map((feature, index) => (
+              <path
+                key={feature.properties.id}
+                className={`road-line road-${feature.properties.kind}`}
+                data-road-index={index}
+              />
+            ))}
             {geo.parkAreas.features.map((feature, index) => (
               <path
                 key={feature.properties.id}

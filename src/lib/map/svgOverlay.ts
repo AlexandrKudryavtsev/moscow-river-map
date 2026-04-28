@@ -156,6 +156,12 @@ export function renderStaticOverlay(
       ?.setAttribute('d', projectedPath(map, feature.geometry.coordinates, true))
   })
 
+  geo.roadLines.features.forEach((feature, index) => {
+    svgNode
+      .querySelector(`[data-road-index="${index}"]`)
+      ?.setAttribute('d', projectedPath(map, feature.geometry.coordinates))
+  })
+
   geo.parkAreas.features.forEach((feature, index) => {
     svgNode
       .querySelector(`[data-park-index="${index}"]`)

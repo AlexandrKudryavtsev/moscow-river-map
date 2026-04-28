@@ -29,6 +29,22 @@ export type BridgeData = {
   halfLengthKm?: number
 }
 
+export type RoadKind =
+  | 'motorway'
+  | 'trunk'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'link'
+
+export type RoadData = {
+  id: string
+  osmId: number
+  name: string
+  kind: RoadKind
+  path: LngLat[]
+}
+
 export type LandmarkData = {
   id: string
   name: string
@@ -54,6 +70,7 @@ export type MoscowMapData = {
   outline: LngLat[]
   riverSpine: LngLat[]
   riverAreas: LngLat[][]
+  roads: RoadData[]
   parks: ParkData[]
   bridges: BridgeData[]
   landmarks: LandmarkData[]
