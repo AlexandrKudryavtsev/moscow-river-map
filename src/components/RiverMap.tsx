@@ -111,6 +111,9 @@ export function RiverMap() {
         <div ref={mapNodeRef} className="moscow-map" />
         <svg ref={overlayRef} className="schematic-overlay" aria-hidden="true">
           <defs>
+            <symbol id="metro-icon" viewBox="0 0 24 24">
+              <path d="M3.4 19h4.1l.9-3h7.2l.9 3h4.1L16.7 5h-3.1L12 10.4 10.4 5H7.3L3.4 19Zm6-6.3L12 7.4l2.6 5.3H9.4Z" />
+            </symbol>
             <clipPath id="moscow-city-clip">
               <path data-map-shape="city-clip" />
             </clipPath>
@@ -165,8 +168,24 @@ export function RiverMap() {
                 className={`landmark landmark-${feature.properties.kind}`}
                 data-landmark-index={index}
               >
-                <circle r="4.8" className="landmark-halo" />
-                <circle r="2.8" className="landmark-dot" />
+                {feature.properties.kind === 'station' ? (
+                  <>
+                    <circle r="6.2" className="metro-icon-halo" />
+                    <use
+                      href="#metro-icon"
+                      x="-5.4"
+                      y="-5.4"
+                      width="10.8"
+                      height="10.8"
+                      className="metro-icon"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <circle r="4.8" className="landmark-halo" />
+                    <circle r="2.8" className="landmark-dot" />
+                  </>
+                )}
                 <text
                   x={feature.properties.dx}
                   y={feature.properties.dy}
