@@ -199,31 +199,48 @@
 
 .river-terminal-icon {
   color: #0a7298;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2.4;
+  fill: currentColor;
 }
 
-.landmark-historic .landmark-dot {
-  fill: #a34336;
+.landmark-business-halo,
+.landmark-culture-halo,
+.landmark-historic-halo,
+.landmark-sport-halo,
+.landmark-park-halo,
+.landmark-tower-halo,
+.landmark-district-halo {
+  fill: #fbfaf6;
+  stroke: #93a49e;
+  stroke-width: 1;
+  opacity: 0.95;
 }
 
-.landmark-business .landmark-dot {
+.landmark-business-icon {
   fill: #355a86;
 }
 
-.landmark-culture .landmark-dot {
-  fill: #6d5798;
+.landmark-culture-icon {
+  fill: #5c4a89;
 }
 
-.landmark-park .landmark-dot {
-  fill: #658b4f;
+.landmark-historic-icon {
+  fill: #94443b;
 }
 
-.landmark-station .landmark-dot {
-  fill: #7b5d42;
+.landmark-sport-icon {
+  fill: #a14e41;
+}
+
+.landmark-park-icon {
+  fill: #5d8247;
+}
+
+.landmark-tower-icon {
+  fill: #2f6f83;
+}
+
+.landmark-district-icon {
+  fill: #4e6178;
 }
 
 .landmark-station .landmark-label {
@@ -240,14 +257,6 @@
   font-weight: 800;
   stroke: rgba(251, 250, 246, 0.96);
   stroke-width: 3.2px;
-}
-
-.landmark-sport .landmark-dot {
-  fill: #b05042;
-}
-
-.landmark-tower .landmark-dot {
-  fill: #2f6f83;
 }
 
 .map-label {

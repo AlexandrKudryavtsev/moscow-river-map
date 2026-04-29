@@ -71,7 +71,12 @@ function projectedBridgePath(
   feature: Feature<Point, BridgeProperties>,
 ): string {
   const center = feature.geometry.coordinates as LngLat
-  const { halfLengthKm, tangentEnd, tangentStart } = feature.properties
+  const { axisEnd, axisStart, halfLengthKm, tangentEnd, tangentStart } = feature.properties
+
+  if (axisStart && axisEnd) {
+    return projectedPath(map, [axisStart, axisEnd])
+  }
+
   const longitudeMeters = metersPerLongitudeDegree(center[1])
   const tangentEastMeters = (tangentEnd[0] - tangentStart[0]) * longitudeMeters
   const tangentNorthMeters =

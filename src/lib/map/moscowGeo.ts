@@ -45,6 +45,8 @@ export type BridgeProperties = {
   halfLengthKm: number
   tangentStart: LngLat
   tangentEnd: LngLat
+  axisStart?: LngLat
+  axisEnd?: LngLat
 }
 
 export type ParkProperties = Pick<ParkData, 'id' | 'label' | 'name'>
@@ -111,6 +113,270 @@ function lineBBoxLngLat(coordinates: LngLat[]): RoadBBox {
 
 function getLineLocation(feature: Feature<Point>): number {
   return Number(feature.properties?.location ?? 0)
+}
+
+type SegmentIntersection = {
+  point: LngLat
+  roadA: LngLat
+  roadB: LngLat
+}
+
+function headingDegrees(a: LngLat, b: LngLat): number {
+  const dx = b[0] - a[0]
+  const dy = b[1] - a[1]
+  return (Math.atan2(dy, dx) * 180) / Math.PI
+}
+
+function minimalAngleDeltaDeg(a: number, b: number): number {
+  const raw = Math.abs(a - b) % 180
+  return raw > 90 ? 180 - raw : raw
+}
+
+function segmentIntersection(
+  a1: LngLat,
+  a2: LngLat,
+  b1: LngLat,
+  b2: LngLat,
+): SegmentIntersection | null {
+  const x1 = a1[0]
+  const y1 = a1[1]
+  const x2 = a2[0]
+  const y2 = a2[1]
+  const x3 = b1[0]
+  const y3 = b1[1]
+  const x4 = b2[0]
+  const y4 = b2[1]
+  const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+
+  if (Math.abs(denom) < 1e-12) {
+    return null
+  }
+
+  const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom
+  const u = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / denom
+
+  if (t < 0 || t > 1 || u < 0 || u > 1) {
+    return null
+  }
+
+  const ix = x1 + t * (x2 - x1)
+  const iy = y1 + t * (y2 - y1)
+
+  return {
+    point: [ix, iy],
+    roadA: a1,
+    roadB: a2,
+  }
+}
+
+function inferBridgeHalfLengthKm(kind: RoadData['kind']): number {
+  switch (kind) {
+    case 'motorway':
+    case 'trunk':
+      return 0.22
+    case 'primary':
+      return 0.18
+    case 'secondary':
+      return 0.14
+    default:
+      return 0.11
+  }
+}
+
+function riverCrossingHalfLengthKm(
+  riverAreas: MoscowMapData['riverAreas'],
+  anchor: LngLat,
+  roadA: LngLat,
+  roadB: LngLat,
+  fallbackKm: number,
+): number {
+  const lngMeters = metersPerLongitudeDegree(anchor[1])
+  const latMeters = 111320
+  const bx = (roadB[0] - roadA[0]) * lngMeters
+  const by = (roadB[1] - roadA[1]) * latMeters
+  const dirLength = Math.hypot(bx, by)
+
+  if (!dirLength) {
+    return fallbackKm
+  }
+
+  const ux = bx / dirLength
+  const uy = by / dirLength
+  const intersections: number[] = []
+
+  for (const polygon of riverAreas) {
+    if (polygon.length < 2) {
+      continue
+    }
+
+    for (let i = 0; i < polygon.length - 1; i += 1) {
+      const p1 = polygon[i] as LngLat
+      const p2 = polygon[i + 1] as LngLat
+      const sx = (p1[0] - anchor[0]) * lngMeters
+      const sy = (p1[1] - anchor[1]) * latMeters
+      const ex = (p2[0] - anchor[0]) * lngMeters
+      const ey = (p2[1] - anchor[1]) * latMeters
+      const vx = ex - sx
+      const vy = ey - sy
+      const denom = ux * vy - uy * vx
+
+      if (Math.abs(denom) < 1e-9) {
+        continue
+      }
+
+      const t = (sx * vy - sy * vx) / denom
+      const u = (sx * uy - sy * ux) / denom
+      if (u < 0 || u > 1) {
+        continue
+      }
+      intersections.push(t)
+    }
+  }
+
+  if (intersections.length < 2) {
+    return fallbackKm
+  }
+
+  intersections.sort((a, b) => a - b)
+  let left = Number.NEGATIVE_INFINITY
+  let right = Number.POSITIVE_INFINITY
+
+  for (const t of intersections) {
+    if (t < 0 && t > left) {
+      left = t
+    }
+    if (t > 0 && t < right) {
+      right = t
+    }
+  }
+
+  if (!Number.isFinite(left) || !Number.isFinite(right) || right <= left) {
+    return fallbackKm
+  }
+
+  const widthMeters = right - left
+  // Small visual overhang helps hide anti-aliased seams with river banks.
+  const halfLengthMeters = widthMeters / 2 + 10
+  const minHalfLengthMeters = Math.max(60, fallbackKm * 1000 * 0.7)
+  const maxHalfLengthMeters = fallbackKm * 1000 * 2.2
+  const clamped = Math.min(maxHalfLengthMeters, Math.max(minHalfLengthMeters, halfLengthMeters))
+  return clamped / 1000
+}
+
+type InferredBridge = {
+  id: string
+  name: string
+  anchor: LngLat
+  halfLengthKm: number
+  roadA: LngLat
+  roadB: LngLat
+}
+
+function metersPerLongitudeDegree(latitude: number): number {
+  return 111320 * Math.cos((latitude * Math.PI) / 180)
+}
+
+function offsetCoordinate(
+  coordinate: LngLat,
+  eastMeters: number,
+  northMeters: number,
+): LngLat {
+  const longitudeMeters = metersPerLongitudeDegree(coordinate[1])
+  return [
+    coordinate[0] + eastMeters / longitudeMeters,
+    coordinate[1] + northMeters / 111320,
+  ]
+}
+
+function axisEndpointsFromRoadSegment(
+  center: LngLat,
+  roadA: LngLat,
+  roadB: LngLat,
+  halfLengthKm: number,
+): { axisStart: LngLat; axisEnd: LngLat } | null {
+  const longitudeMeters = metersPerLongitudeDegree(center[1])
+  const roadEastMeters = (roadB[0] - roadA[0]) * longitudeMeters
+  const roadNorthMeters = (roadB[1] - roadA[1]) * 111320
+  const roadLength = Math.hypot(roadEastMeters, roadNorthMeters)
+
+  if (!roadLength) {
+    return null
+  }
+
+  const unitEast = roadEastMeters / roadLength
+  const unitNorth = roadNorthMeters / roadLength
+  const halfLengthMeters = halfLengthKm * 1000
+
+  return {
+    axisStart: offsetCoordinate(
+      center,
+      -unitEast * halfLengthMeters,
+      -unitNorth * halfLengthMeters,
+    ),
+    axisEnd: offsetCoordinate(
+      center,
+      unitEast * halfLengthMeters,
+      unitNorth * halfLengthMeters,
+    ),
+  }
+}
+
+function inferBridgesFromRoadsWithAxis(data: MoscowMapData): InferredBridge[] {
+  const inferred: InferredBridge[] = []
+  const dedupe = new Set<string>()
+
+  for (const road of data.roads) {
+    if (road.path.length < 2) {
+      continue
+    }
+
+    for (let i = 0; i < road.path.length - 1; i += 1) {
+      const roadA = road.path[i] as LngLat
+      const roadB = road.path[i + 1] as LngLat
+      const roadHeading = headingDegrees(roadA, roadB)
+
+      for (let j = 0; j < data.riverSpine.length - 1; j += 1) {
+        const riverA = data.riverSpine[j] as LngLat
+        const riverB = data.riverSpine[j + 1] as LngLat
+        const riverHeading = headingDegrees(riverA, riverB)
+        const crossingAngle = minimalAngleDeltaDeg(roadHeading, riverHeading)
+
+        if (crossingAngle < 28) {
+          continue
+        }
+
+        const intersection = segmentIntersection(roadA, roadB, riverA, riverB)
+        if (!intersection) {
+          continue
+        }
+
+        const [lng, lat] = intersection.point
+        const key = `${lng.toFixed(4)}:${lat.toFixed(4)}`
+        if (dedupe.has(key)) {
+          continue
+        }
+        dedupe.add(key)
+
+        inferred.push({
+          // Keep bridge id deterministic so future manual overrides remain stable.
+          id: `bridge-auto-${road.id}-${i}-${j}`,
+          name: `Мост ${road.name}`,
+          anchor: intersection.point,
+          halfLengthKm: riverCrossingHalfLengthKm(
+            data.riverAreas,
+            intersection.point,
+            intersection.roadA,
+            intersection.roadB,
+            inferBridgeHalfLengthKm(road.kind),
+          ),
+          roadA: intersection.roadA,
+          roadB: intersection.roadB,
+        })
+      }
+    }
+  }
+
+  return inferred
 }
 
 function createRoute(riverLine: Feature<LineString>, vessel: VesselData): RiverRoute {
@@ -211,6 +477,8 @@ export function createShipFeature(
 export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
   const riverLine = lineFeature(data.riverSpine)
   const riverLength = length(riverLine, { units: 'kilometers' })
+  const inferredBridges = inferBridgesFromRoadsWithAxis(data)
+  const hasManualBridges = data.bridges.length > 0
   const riverArea: Feature<MultiPolygon, { name: string }> = {
     type: 'Feature',
     properties: { name: 'Moskva River' },
@@ -263,7 +531,30 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
     })) as Feature<Polygon, ParkProperties>[],
   )
   const bridgeLines = featureCollection(
-    data.bridges.map((bridge) => createBridge(riverLine, riverLength, bridge)),
+    hasManualBridges
+      ? data.bridges.map((bridge) => createBridge(riverLine, riverLength, bridge))
+      : inferredBridges.map((bridge) => {
+          const base = createBridge(riverLine, riverLength, bridge)
+          const axis = axisEndpointsFromRoadSegment(
+            base.geometry.coordinates as LngLat,
+            bridge.roadA,
+            bridge.roadB,
+            bridge.halfLengthKm,
+          )
+
+          if (!axis) {
+            return base
+          }
+
+          return {
+            ...base,
+            properties: {
+              ...base.properties,
+              axisStart: axis.axisStart,
+              axisEnd: axis.axisEnd,
+            },
+          }
+        }),
   )
   const landmarks = featureCollection(
     data.landmarks.map((landmark) =>
