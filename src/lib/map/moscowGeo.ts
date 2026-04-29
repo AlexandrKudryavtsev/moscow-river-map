@@ -48,7 +48,12 @@ export type BridgeProperties = {
 }
 
 export type ParkProperties = Pick<ParkData, 'id' | 'label' | 'name'>
-export type RoadProperties = Omit<RoadData, 'path'>
+/** Axis-aligned bounds in WGS84 for fast viewport culling: [minLng, minLat, maxLng, maxLat] */
+export type RoadBBox = readonly [number, number, number, number]
+
+export type RoadProperties = Omit<RoadData, 'path'> & {
+  bbox: RoadBBox
+}
 export type LandmarkProperties = Omit<LandmarkData, 'coordinates'>
 
 export type TerminalProperties = {
@@ -86,6 +91,22 @@ function lineFeature<P extends GeoJsonProperties = GeoJsonProperties>(
   properties?: P,
 ): Feature<LineString, P> {
   return lineString(coordinates, properties) as Feature<LineString, P>
+}
+
+function lineBBoxLngLat(coordinates: LngLat[]): RoadBBox {
+  let minLng = Infinity
+  let minLat = Infinity
+  let maxLng = -Infinity
+  let maxLat = -Infinity
+
+  for (const [lng, lat] of coordinates) {
+    if (lng < minLng) minLng = lng
+    if (lng > maxLng) maxLng = lng
+    if (lat < minLat) minLat = lat
+    if (lat > maxLat) maxLat = lat
+  }
+
+  return [minLng, minLat, maxLng, maxLat]
 }
 
 function getLineLocation(feature: Feature<Point>): number {
@@ -223,6 +244,7 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
         osmId: road.osmId,
         name: road.name,
         kind: road.kind,
+        bbox: lineBBoxLngLat(road.path),
       }),
     ),
   )

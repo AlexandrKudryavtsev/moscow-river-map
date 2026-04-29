@@ -81,14 +81,19 @@ export function RiverMap() {
       animationRef.current = window.requestAnimationFrame(tick)
     }
 
-    const renderAfterSetup = () => {
-      if (setupDone) {
-        renderStaticOverlay(map, geo, overlayRef.current)
+    let overlayMoveRaf = 0
+    const scheduleStaticOverlay = () => {
+      if (!setupDone || overlayMoveRaf !== 0) {
+        return
       }
+      overlayMoveRaf = window.requestAnimationFrame(() => {
+        overlayMoveRaf = 0
+        renderStaticOverlay(map, geo, overlayRef.current)
+      })
     }
 
-    map.on('move', renderAfterSetup)
-    map.on('resize', renderAfterSetup)
+    map.on('move', scheduleStaticOverlay)
+    map.on('resize', scheduleStaticOverlay)
     map.once('load', setupMap)
     window.requestAnimationFrame(setupMap)
     const setupTimeoutId = window.setTimeout(setupMap, 50)
@@ -96,6 +101,10 @@ export function RiverMap() {
     return () => {
       disposed = true
       window.clearTimeout(setupTimeoutId)
+
+      if (overlayMoveRaf !== 0) {
+        window.cancelAnimationFrame(overlayMoveRaf)
+      }
 
       if (animationRef.current !== null) {
         window.cancelAnimationFrame(animationRef.current)
