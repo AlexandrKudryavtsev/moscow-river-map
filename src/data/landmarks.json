@@ -781,6 +781,94 @@
     "dy": 16
   },
   {
+    "id": "place-gorky-park",
+    "name": "Парк Горького",
+    "coordinates": [
+      37.6034306,
+      55.7298188
+    ],
+    "kind": "park",
+    "dx": -88,
+    "dy": -10
+  },
+  {
+    "id": "place-muzeon",
+    "name": "Музеон",
+    "coordinates": [
+      37.6078115,
+      55.7344158
+    ],
+    "kind": "park",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-zaryadye-park",
+    "name": "Зарядье",
+    "coordinates": [
+      37.6309832,
+      55.7511034
+    ],
+    "kind": "park",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-floating-bridge",
+    "name": "Парящий мост",
+    "coordinates": [
+      37.6305232,
+      55.7519233
+    ],
+    "kind": "historic",
+    "dx": 10,
+    "dy": 16
+  },
+  {
+    "id": "place-federation-tower",
+    "name": "Башня Федерация",
+    "coordinates": [
+      37.537306,
+      55.7491077
+    ],
+    "kind": "tower",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-kievsky-station",
+    "name": "Киевский вокзал",
+    "coordinates": [
+      37.566759,
+      55.7446337
+    ],
+    "kind": "culture",
+    "dx": -90,
+    "dy": 18
+  },
+  {
+    "id": "place-danilovsky-market",
+    "name": "Даниловский рынок",
+    "coordinates": [
+      37.6209503,
+      55.7099154
+    ],
+    "kind": "business",
+    "dx": 10,
+    "dy": -10
+  },
+  {
+    "id": "place-lomonosov-cluster",
+    "name": "Ломоносов (кластер МГУ)",
+    "coordinates": [
+      37.5178317,
+      55.7048717
+    ],
+    "kind": "culture",
+    "dx": -116,
+    "dy": 16
+  },
+  {
     "id": "river-park-fili",
     "name": "Парк Фили",
     "coordinates": [
