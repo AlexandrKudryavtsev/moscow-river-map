@@ -27,7 +27,7 @@ function projectedPath(
     .map((coordinate, index) => {
       const { x, y } = map.project(toLngLat(coordinate))
 
-      return `${index === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
+      return `${index === 0 ? 'M' : 'L'} ${x} ${y}`
     })
     .join(' ')
 
@@ -109,8 +109,8 @@ function moveCircle(circleNode: Element | null, coordinate: ScreenPoint): void {
     return
   }
 
-  circleNode.setAttribute('cx', coordinate.x.toFixed(1))
-  circleNode.setAttribute('cy', coordinate.y.toFixed(1))
+  circleNode.setAttribute('cx', String(coordinate.x))
+  circleNode.setAttribute('cy', String(coordinate.y))
 }
 
 function moveGroup(groupNode: Element | null, coordinate: ScreenPoint): void {
@@ -120,7 +120,7 @@ function moveGroup(groupNode: Element | null, coordinate: ScreenPoint): void {
 
   groupNode.setAttribute(
     'transform',
-    `translate(${coordinate.x.toFixed(1)} ${coordinate.y.toFixed(1)})`,
+    `translate(${coordinate.x} ${coordinate.y})`,
   )
 }
 
@@ -129,8 +129,8 @@ function moveText(textNode: Element | null, coordinate: ScreenPoint): void {
     return
   }
 
-  textNode.setAttribute('x', coordinate.x.toFixed(1))
-  textNode.setAttribute('y', coordinate.y.toFixed(1))
+  textNode.setAttribute('x', String(coordinate.x))
+  textNode.setAttribute('y', String(coordinate.y))
 }
 
 function bboxIntersectsMapBounds(

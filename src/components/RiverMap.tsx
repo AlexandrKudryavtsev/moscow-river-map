@@ -1,12 +1,49 @@
 import { useEffect, useMemo, useRef, type CSSProperties } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import buildings from '../data/buildings.json'
 import { MOSCOW_DATA } from '../data/moscowData'
 import { buildMoscowGeo } from '../lib/map/moscowGeo'
 import { blankMapStyle } from '../lib/map/mapStyle'
 import { renderShips, renderStaticOverlay } from '../lib/map/svgOverlay'
 import { LandmarkMarkerGlyph } from './LandmarkMarkerGlyph'
 import { LandmarkSvgDefs } from './LandmarkSvgDefs'
+
+const BUILDINGS_SOURCE_ID = 'moscow-buildings'
+const BUILDINGS_FILL_LAYER_ID = 'moscow-buildings-fill'
+const BUILDINGS_OUTLINE_LAYER_ID = 'moscow-buildings-outline'
+
+const addBuildingsLayer = (map: maplibregl.Map): void => {
+  if (map.getSource(BUILDINGS_SOURCE_ID)) {
+    return
+  }
+
+  map.addSource(BUILDINGS_SOURCE_ID, {
+    type: 'geojson',
+    data: buildings as GeoJSON.FeatureCollection<GeoJSON.Polygon>,
+  })
+
+  map.addLayer({
+    id: BUILDINGS_FILL_LAYER_ID,
+    type: 'fill',
+    source: BUILDINGS_SOURCE_ID,
+    paint: {
+      'fill-color': '#c9d3c9',
+      'fill-opacity': 0.9,
+    },
+  })
+
+  map.addLayer({
+    id: BUILDINGS_OUTLINE_LAYER_ID,
+    type: 'line',
+    source: BUILDINGS_SOURCE_ID,
+    paint: {
+      'line-color': '#9ca99f',
+      'line-width': 0.7,
+      'line-opacity': 0.9,
+    },
+  })
+}
 
 export function RiverMap() {
   const mapNodeRef = useRef<HTMLDivElement | null>(null)
@@ -83,30 +120,23 @@ export function RiverMap() {
       animationRef.current = window.requestAnimationFrame(tick)
     }
 
-    let overlayMoveRaf = 0
-    const scheduleStaticOverlay = () => {
-      if (!setupDone || overlayMoveRaf !== 0) {
+    const syncStaticOverlay = () => {
+      if (!setupDone) {
         return
       }
-      overlayMoveRaf = window.requestAnimationFrame(() => {
-        overlayMoveRaf = 0
-        renderStaticOverlay(map, geo, overlayRef.current)
-      })
+      renderStaticOverlay(map, geo, overlayRef.current)
     }
 
-    map.on('move', scheduleStaticOverlay)
-    map.on('resize', scheduleStaticOverlay)
+    map.on('render', syncStaticOverlay)
+    map.on('resize', syncStaticOverlay)
     map.once('load', setupMap)
+    map.once('load', () => addBuildingsLayer(map))
     window.requestAnimationFrame(setupMap)
     const setupTimeoutId = window.setTimeout(setupMap, 50)
 
     return () => {
       disposed = true
       window.clearTimeout(setupTimeoutId)
-
-      if (overlayMoveRaf !== 0) {
-        window.cancelAnimationFrame(overlayMoveRaf)
-      }
 
       if (animationRef.current !== null) {
         window.cancelAnimationFrame(animationRef.current)
