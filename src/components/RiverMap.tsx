@@ -49,6 +49,7 @@ export function RiverMap() {
   const mapNodeRef = useRef<HTMLDivElement | null>(null)
   const overlayRef = useRef<SVGSVGElement | null>(null)
   const animationRef = useRef<number | null>(null)
+  const animationStartedAtRef = useRef<number>(0)
   const geo = useMemo(() => buildMoscowGeo(), [])
   const activeRoute = geo.routes[0] ?? null
   const activeRouteLabels = activeRoute?.name.split(' — ') ?? []
@@ -109,11 +110,9 @@ export function RiverMap() {
 
       setupDone = true
 
-      const startedAt = performance.now()
-      const tick = (now: number) => {
-        const elapsed = (now - startedAt) / 1000
-
-        renderShips(map, geo, overlayRef.current, elapsed)
+      animationStartedAtRef.current = performance.now()
+      const tick = () => {
+        map.triggerRepaint()
         animationRef.current = window.requestAnimationFrame(tick)
       }
 
@@ -125,6 +124,8 @@ export function RiverMap() {
         return
       }
       renderStaticOverlay(map, geo, overlayRef.current)
+      const elapsed = (performance.now() - animationStartedAtRef.current) / 1000
+      renderShips(map, geo, overlayRef.current, elapsed)
     }
 
     map.on('render', syncStaticOverlay)
