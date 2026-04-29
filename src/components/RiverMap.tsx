@@ -66,7 +66,7 @@ export function RiverMap() {
       center: MOSCOW_DATA.center,
       zoom: 10.15,
       minZoom: 9,
-      maxZoom: 13.8,
+      maxZoom: 16.8,
       maxBounds: MOSCOW_DATA.bounds,
       attributionControl: false,
       dragRotate: false,

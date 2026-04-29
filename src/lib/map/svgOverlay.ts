@@ -304,8 +304,49 @@ export function renderStaticOverlay(
     moveCircle(dom.terminals[index] ?? null, projected)
   })
 
+  const projectedLandmarks: ScreenPoint[] = new Array(geo.landmarks.features.length)
+  const rankedLandmarks = geo.landmarks.features
+    .map((feature, index) => ({
+      index,
+      popularity: feature.properties.popularity,
+    }))
+    .sort((a, b) => b.popularity - a.popularity)
+  const zoom = map.getZoom()
+  const baseVisibleCount =
+    zoom < 9.8
+      ? 28
+      : zoom < 10.5
+        ? 44
+        : zoom < 11.2
+          ? 72
+          : zoom < 11.9
+            ? 108
+            : zoom < 12.5
+              ? 152
+              : zoom < 13
+                ? 210
+                : zoom < 13.4
+                  ? 290
+                  : zoom < 13.7
+                    ? 360
+                    : Infinity
+  const visibleLandmarks = new Set<number>()
+
+  rankedLandmarks.slice(0, baseVisibleCount).forEach((entry) => {
+    visibleLandmarks.add(entry.index)
+  })
+
   geo.landmarks.features.forEach((feature, index) => {
-    moveGroup(dom.landmarks[index] ?? null, map.project(feature.geometry.coordinates as LngLat))
+    const projected = map.project(feature.geometry.coordinates as LngLat)
+    projectedLandmarks[index] = projected
+    moveGroup(dom.landmarks[index] ?? null, projected)
+  })
+
+  dom.landmarks.forEach((node, index) => {
+    if (!node) {
+      return
+    }
+    node.style.display = visibleLandmarks.has(index) || !Number.isFinite(baseVisibleCount) ? '' : 'none'
   })
 
   svgNode.classList.add('is-ready')

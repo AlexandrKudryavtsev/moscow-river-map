@@ -56,7 +56,9 @@ export type RoadBBox = readonly [number, number, number, number]
 export type RoadProperties = Omit<RoadData, 'path'> & {
   bbox: RoadBBox
 }
-export type LandmarkProperties = Omit<LandmarkData, 'coordinates'>
+export type LandmarkProperties = Omit<LandmarkData, 'coordinates'> & {
+  popularity: number
+}
 
 export type TerminalProperties = {
   id: string
@@ -413,6 +415,28 @@ function createRoute(riverLine: Feature<LineString>, vessel: VesselData): RiverR
   }
 }
 
+function landmarkPopularity(landmark: LandmarkData): number {
+  const isManual = !landmark.id.startsWith('poi-')
+  const base = isManual ? 100 : 0
+
+  const kindWeight: Record<string, number> = {
+    station: 48,
+    'river-terminal': 44,
+    tower: 38,
+    historic: 32,
+    culture: 28,
+    park: 24,
+    business: 22,
+    sport: 20,
+    district: 12,
+  }
+
+  const nameWeight = Math.max(0, 16 - Math.floor(landmark.name.length / 6))
+  const riverBoost = landmark.id.startsWith('poi-river-') ? 10 : 0
+
+  return base + (kindWeight[landmark.kind] ?? 14) + nameWeight + riverBoost
+}
+
 function createBridge(
   riverLine: Feature<LineString>,
   riverLength: number,
@@ -564,6 +588,7 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
         kind: landmark.kind,
         dx: landmark.dx,
         dy: landmark.dy,
+        popularity: landmarkPopularity(landmark),
       }),
     ),
   )
