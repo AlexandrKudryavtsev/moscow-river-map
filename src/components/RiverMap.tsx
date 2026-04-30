@@ -177,6 +177,20 @@ export function RiverMap() {
                 data-park-index={index}
               />
             ))}
+            {geo.tributaryLines.features.map((feature, index) => (
+              <path
+                key={feature.properties.id}
+                className={`tributary-line tributary-${feature.properties.kind}`}
+                data-tributary-index={index}
+              />
+            ))}
+            {geo.tributaryAreas.features.map((feature, index) => (
+              <path
+                key={feature.properties.id}
+                className={`tributary-area tributary-area-${feature.properties.kind}`}
+                data-tributary-area-index={index}
+              />
+            ))}
             <path className="river-shape" data-map-shape="river" />
             <path className="river-center" data-map-line="river-center" />
             {geo.bridgeLines.features.map((feature, index) => (

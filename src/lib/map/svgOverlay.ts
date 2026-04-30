@@ -179,6 +179,8 @@ type OverlayDomCache = {
   riverCenter: Element | null
   rings: SVGPathElement[]
   roads: SVGPathElement[]
+  tributaries: SVGPathElement[]
+  tributaryAreas: SVGPathElement[]
   parks: SVGPathElement[]
   parkLabels: SVGTextElement[]
   routes: SVGPathElement[]
@@ -195,6 +197,8 @@ function cacheStillValid(cache: OverlayDomCache, geo: MoscowGeo): boolean {
   return (
     cache.rings.length === geo.ringLines.features.length &&
     cache.roads.length === geo.roadLines.features.length &&
+    cache.tributaries.length === geo.tributaryLines.features.length &&
+    cache.tributaryAreas.length === geo.tributaryAreas.features.length &&
     cache.parks.length === geo.parkAreas.features.length &&
     cache.routes.length === geo.routeLines.features.length &&
     cache.bridges.length === geo.bridgeLines.features.length &&
@@ -212,6 +216,16 @@ function buildOverlayDomCache(svg: SVGSVGElement, geo: MoscowGeo): OverlayDomCac
     riverCenter: svg.querySelector('[data-map-line="river-center"]'),
     rings: collectByDataIndex<SVGPathElement>(svg, 'data-ring-index', geo.ringLines.features.length),
     roads: collectByDataIndex<SVGPathElement>(svg, 'data-road-index', geo.roadLines.features.length),
+    tributaries: collectByDataIndex<SVGPathElement>(
+      svg,
+      'data-tributary-index',
+      geo.tributaryLines.features.length,
+    ),
+    tributaryAreas: collectByDataIndex<SVGPathElement>(
+      svg,
+      'data-tributary-area-index',
+      geo.tributaryAreas.features.length,
+    ),
     parks: collectByDataIndex<SVGPathElement>(svg, 'data-park-index', geo.parkAreas.features.length),
     parkLabels: collectByDataIndex<SVGTextElement>(
       svg,
@@ -281,6 +295,34 @@ export function renderStaticOverlay(
     }
 
     pathEl.setAttribute('d', projectedPath(map, feature.geometry.coordinates))
+  })
+
+  geo.tributaryLines.features.forEach((feature, index) => {
+    const pathEl = dom.tributaries[index]
+    if (!pathEl) {
+      return
+    }
+
+    if (!bboxIntersectsMapBounds(feature.properties.bbox, west, south, east, north)) {
+      pathEl.setAttribute('d', '')
+      return
+    }
+
+    pathEl.setAttribute('d', projectedPath(map, feature.geometry.coordinates))
+  })
+
+  geo.tributaryAreas.features.forEach((feature, index) => {
+    const pathEl = dom.tributaryAreas[index]
+    if (!pathEl) {
+      return
+    }
+
+    if (!bboxIntersectsMapBounds(feature.properties.bbox, west, south, east, north)) {
+      pathEl.setAttribute('d', '')
+      return
+    }
+
+    pathEl.setAttribute('d', projectedPolygonPath(map, feature.geometry))
   })
 
   geo.parkAreas.features.forEach((feature, index) => {

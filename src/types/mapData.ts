@@ -64,6 +64,24 @@ export type VesselData = {
   end: LngLat
 }
 
+export type TributaryKind = 'river' | 'canal' | 'stream'
+
+export type TributaryData = {
+  id: string
+  name: string | null
+  kind: TributaryKind
+  paths: LngLat[][]
+}
+
+export type TributaryAreaKind = 'river' | 'canal' | 'stream' | 'riverbank' | 'ditch' | 'oxbow'
+
+export type TributaryAreaData = {
+  osm_id: string
+  name: string | null
+  kind: TributaryAreaKind
+  rings: LngLat[][]
+}
+
 export type MoscowMapData = {
   center: LngLat
   bounds: Bounds
@@ -75,4 +93,6 @@ export type MoscowMapData = {
   bridges: BridgeData[]
   landmarks: LandmarkData[]
   vessels: VesselData[]
+  tributaries: TributaryData[]
+  tributaryAreas: TributaryAreaData[]
 }

@@ -21,6 +21,8 @@ import type {
   MoscowMapData,
   ParkData,
   RoadData,
+  TributaryAreaKind,
+  TributaryKind,
   VesselData,
 } from '../../types/mapData'
 import { BRIDGE_HALF_LENGTH_KM, BRIDGE_TANGENT_SAMPLE_KM } from './constants'
@@ -69,6 +71,20 @@ export type ShipProperties = RouteProperties & {
   progress: number
 }
 
+export type TributaryProperties = {
+  id: string
+  name: string | null
+  kind: TributaryKind
+  bbox: RoadBBox
+}
+
+export type TributaryAreaProperties = {
+  id: string
+  name: string | null
+  kind: TributaryAreaKind
+  bbox: RoadBBox
+}
+
 export type MoscowGeo = {
   riverLine: Feature<LineString>
   riverArea: Feature<MultiPolygon, { name: string }>
@@ -81,6 +97,8 @@ export type MoscowGeo = {
   routes: RiverRoute[]
   routeLines: FeatureCollection<LineString, RouteProperties>
   terminals: FeatureCollection<Point, TerminalProperties>
+  tributaryLines: FeatureCollection<LineString, TributaryProperties>
+  tributaryAreas: FeatureCollection<Polygon, TributaryAreaProperties>
 }
 
 function pointFeature<P extends GeoJsonProperties = GeoJsonProperties>(
@@ -593,6 +611,37 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
     ),
   )
   const routes = data.vessels.map((vessel) => createRoute(riverLine, vessel))
+  const tributaryLines = featureCollection(
+    data.tributaries.flatMap((tributary) =>
+      tributary.paths
+        .filter((path) => path.length >= 2)
+        .map((path, pathIndex) =>
+          lineFeature<TributaryProperties>(path, {
+            id: `${tributary.id}-${pathIndex}`,
+            name: tributary.name,
+            kind: tributary.kind,
+            bbox: lineBBoxLngLat(path),
+          }),
+        ),
+    ),
+  )
+  const tributaryAreas = featureCollection<Polygon, TributaryAreaProperties>(
+    data.tributaryAreas
+      .filter((area) => area.rings.length > 0 && area.rings[0].length >= 4)
+      .map<Feature<Polygon, TributaryAreaProperties>>((area) => ({
+        type: 'Feature',
+        properties: {
+          id: area.osm_id,
+          name: area.name,
+          kind: area.kind,
+          bbox: lineBBoxLngLat(area.rings[0]),
+        },
+        geometry: {
+          type: 'Polygon',
+          coordinates: area.rings,
+        },
+      })),
+  )
 
   return {
     riverLine,
@@ -605,6 +654,8 @@ export function buildMoscowGeo(data: MoscowMapData = MOSCOW_DATA): MoscowGeo {
     landmarks,
     routes,
     routeLines: featureCollection(routes.map((route) => route.line)),
+    tributaryLines,
+    tributaryAreas,
     terminals: featureCollection<Point, TerminalProperties>(
       routes.flatMap(
         (route): Feature<Point, TerminalProperties>[] => [
