@@ -5,6 +5,7 @@ export type LandmarkKind =
   | 'business'
   | 'culture'
   | 'district'
+  | 'education'
   | 'historic'
   | 'park'
   | 'river-terminal'

@@ -70,9 +70,18 @@ export function LandmarkMarkerGlyph({ kind }: { kind: LandmarkKind }) {
     case 'culture':
       return (
         <LandmarkIconUse
-          symbolId="landmark-icon-education"
+          symbolId="landmark-icon-culture"
           haloClass="landmark-culture-halo"
           iconClass="landmark-culture-icon"
+          haloR={6.5}
+        />
+      )
+    case 'education':
+      return (
+        <LandmarkIconUse
+          symbolId="landmark-icon-education"
+          haloClass="landmark-education-halo"
+          iconClass="landmark-education-icon"
           haloR={6.5}
         />
       )

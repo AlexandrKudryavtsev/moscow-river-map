@@ -249,6 +249,7 @@
 
 .landmark-business-halo,
 .landmark-culture-halo,
+.landmark-education-halo,
 .landmark-historic-halo,
 .landmark-sport-halo,
 .landmark-park-halo,
@@ -266,6 +267,10 @@
 
 .landmark-culture-icon {
   fill: #5c4a89;
+}
+
+.landmark-education-icon {
+  fill: #3a6b54;
 }
 
 .landmark-historic-icon {

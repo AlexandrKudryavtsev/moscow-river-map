@@ -443,6 +443,7 @@ function landmarkPopularity(landmark: LandmarkData): number {
     tower: 38,
     historic: 32,
     culture: 28,
+    education: 26,
     park: 24,
     business: 22,
     sport: 20,
